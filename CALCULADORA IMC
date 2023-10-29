@@ -1,0 +1,87 @@
+#CRIAÇÃO DA TELA
+from tkinter import *
+from tkinter import ttk
+
+#CORES
+
+co0 = '#ffffff'  #BRANCO
+co2 = '#000000'  #PRETO
+co8 = '#9932CC'  #ROXO
+
+janela = Tk()
+janela.title('')
+janela.geometry('295x230')
+janela.configure(bg='black')
+
+#DIVISÃO DA JANELA EM DOIS FRAMES/PARTES
+
+frame_cima= Frame(janela,width=295, height=50, bg=co2, pady=0, padx=0, relief="flat")
+frame_cima.grid(row=0,column=0,sticky=NSEW)
+
+frame_baixo= Frame(janela,width=295, height=180, bg=co2, pady=0, padx=0, relief="flat")
+frame_baixo.grid(row=1,column=0,sticky=NSEW)
+
+#CONFIGURANDO O FRAME CIMA
+app_nome = Label(frame_cima, text='CALCULADORA DE IMC',width=23,height=1,padx=0,relief='flat',anchor='center', font=('Ivy 16 bold'),bg=co2,fg=co0)
+app_nome.place(x=0, y=0)
+
+app_linha = Label(frame_cima, text='',width=400,height=1,padx=0,relief='flat',anchor='center', font=('Ivy 1'),bg=co0,fg=co0)
+app_linha.place(x=0, y=35)
+
+#FUNÇÃO PARA CALCULADORA FUNCIONAR EM TELA
+def calcular():
+    
+    peso = float(e_peso.get())
+    altura = float(e_altura.get())
+
+    imc = peso / altura**2
+
+    resultado = imc
+
+    if resultado < 18.5:
+        l_resultado_texto['text'] = 'Você está abaixo do peso normal'
+    elif resultado >= 18.5 and resultado < 24.99:
+        l_resultado_texto['text'] = 'Você está com o peso normal'
+    elif resultado >= 25 and resultado < 29.99:
+        l_resultado_texto['text'] = 'Você está com sobrepeso'
+    elif resultado >= 30 and resultado < 34.99:
+        l_resultado_texto['text'] = 'Você está obeso de grau 1'
+    elif resultado >= 35 and resultado < 39.99:
+        l_resultado_texto['text'] = 'Você está obeso de grau 2'
+    else:
+        l_resultado_texto['text'] = 'Você está obeso de grau 3'
+          
+    l_resultado['text'] = "{:.{}f}".format(resultado, 2)
+       
+       
+#CONFIGURANDO O FRAME BAIXO PESO
+l_peso = Label(frame_baixo, text='Insira seu peso',height=1,padx=0,relief='flat',anchor='center', font=('Ivy 10 bold'),bg=co2,fg=co0)
+l_peso.grid(row=0, column=0, sticky=NSEW, pady=10,padx=3)
+
+#ENTRADA DO PESO
+e_peso= Entry(frame_baixo,width=5,relief='solid', font=('Ivy 10 bold'),justify='center')
+e_peso.grid(row=0, column=1, sticky=NSEW, pady=10,padx=3)
+
+#CONFIGURANDO O FRAME BAIXO ALTURA
+l_altura = Label(frame_baixo, text='Insira sua altura',height=1,padx=0,relief='flat',anchor='center', font=('Ivy 10 bold'),bg=co2,fg=co0)
+l_altura.grid(row=1, column=0, sticky=NSEW, pady=10,padx=3)
+
+#ENTRADA DA ALTURA
+e_altura= Entry(frame_baixo,width=5,relief='solid', font=('Ivy 10 bold'),justify='center')
+e_altura.grid(row=1, column=1, sticky=NSEW, pady=10,padx=3)
+
+#RESULTADO
+l_resultado = Label(frame_baixo, text='---',width=5,height=1,padx=7,pady=12,relief='flat',anchor='center', font=('Ivy 24 bold'),bg=co8,fg=co0)
+l_resultado.place(x=175,y=10)
+
+l_resultado_texto = Label(frame_baixo, text='',width=36,height=1,padx=0,pady=12,relief='flat',anchor='center', font=('Ivy 10 bold'),bg=co8,fg=co0)
+l_resultado_texto.place(x=0,y=85)
+
+#BOTÃO CALCULAR
+b_calcular = Button(frame_baixo, command=calcular, text='calcular',width=35,height=0,overrelief=SOLID,relief='raised',anchor='center', font=('Ivy 10 bold'),bg=co8,fg=co0)
+b_calcular.grid(row=4,column=0,sticky=NSEW,pady=60,padx=5,columnspan=35)
+
+
+
+janela.mainloop()
+
